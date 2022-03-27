@@ -37,7 +37,17 @@ def func_1(data):
 
 # Tweet count Top 10
 def func_2(data):
-    pass
+    count = {}
+    for elem in data:
+        if elem['user']['username'] in count:
+            count[elem['user']['username']] += 1
+        else:
+            count[elem['user']['username']] = 1
+    top_10 = sorted(count.items(), key=lambda x: x[1], reverse=True)[:10]
+    print("Top 10 users con más tweets: \n")
+    for elem in range(len(top_10)):
+        string = f'\nusername: {top_10[elem][0]}\ntweets: {top_10[elem][1]}'
+        print(f'{elem + 1}. {string}\n')
 
 
 # Dates tweeted Top 10
