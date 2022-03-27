@@ -1,4 +1,5 @@
 import json
+import re
 
 from datetime import datetime
 
@@ -70,7 +71,21 @@ def func_3(data):
 
 # Hashtags Top 10
 def func_4(data):
-    pass
+    count = {}
+    filter_ = re.compile(r"#(\w+)")
+    for elem in data:
+        tweet = elem['content']
+        tags = filter_.findall(tweet)
+        for tag in tags:
+            if tag in count:
+                count[tag] += 1
+            else:
+                count[tag] = 1
+    top_10 = sorted(count.items(), key=lambda x: x[1], reverse=True)[:10]
+    print("Top 10 hashtags: \n")
+    for elem in range(len(top_10)):
+        string = f'\nhashtag: #{top_10[elem][0]}\ncount: {top_10[elem][1]}'
+        print(f'{elem + 1}. {string}\n')
 
 
 if __name__ == "__main__":
