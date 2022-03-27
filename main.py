@@ -25,7 +25,14 @@ def main():
 
 # Retweeted Top 10
 def func_1(data):
-    pass
+    count = []
+    for elem in data:
+        count.append((elem['retweetCount'], elem['content']))
+    top_10 = sorted(count, key=lambda x: x[0], reverse=True)[:10]
+    print("Top 10 tweets con más retweets: \n")
+    for elem in range(len(top_10)):
+        string = f'\nretweets: {top_10[elem][0]}\ntweet: {top_10[elem][1]}'
+        print(f'{elem + 1}. {string}\n')
 
 
 # Tweet count Top 10
