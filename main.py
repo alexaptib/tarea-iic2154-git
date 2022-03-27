@@ -1,5 +1,7 @@
 import json
 
+from datetime import datetime
+
 
 def main():
     print('Cargando datos... esto demora unos segundos...')
@@ -52,7 +54,18 @@ def func_2(data):
 
 # Dates tweeted Top 10
 def func_3(data):
-    pass
+    count = {}
+    for elem in data:
+        date = datetime.strptime(elem['date'],'%Y-%m-%dT%H:%M:%S+00:00').strftime("%Y-%m-%d")
+        if date in count:
+            count[date] += 1
+        else:
+            count[date] = 1
+    top_10 = sorted(count.items(), key=lambda x: x[1], reverse=True)[:10]
+    print("Top 10 fechas con más tweets: \n")
+    for elem in range(len(top_10)):
+        string = f'\nfecha: {top_10[elem][0]}\ntweets: {top_10[elem][1]}'
+        print(f'{elem + 1}. {string}\n')
 
 
 # Hashtags Top 10
